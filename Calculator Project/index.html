@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="scripts.js"></script>
+  <title>The Best Calculator</title>
+</head>
+<body>
+  <div id="calculator">
+  <div id="screen">
+    <div id="read-out">123</div>
+  </div>
+  <div id="buttons">
+    <div id="clear">AC</div>
+    <div class="function">÷</div>
+    <div class="entry">7</div>
+    <div class="entry">8</div>
+    <div class="entry">9</div>
+    <div class="function">x</div>
+    <div class="entry">4</div>
+    <div class="entry">5</div>
+    <div class="entry">6</div>
+    <div class="function">-</div>
+    <div class="entry">1</div>
+    <div class="entry">2</div>
+    <div class="entry">3</div>
+    <div class="function">+</div>
+    <div id="zero" class="entry">0</div>
+    <div class="entry">.</div>
+    <div class="function">=</div>
+  </div>
+</div>
+</body>
+</html>
+
+<style>
+  @font-face {
+    font-family: 'Calculator';
+    src: url('/Calculator.ttf');
+  }
+  
+  #calculator {
+    width: 400px;
+    height: 800px;
+    margin: auto;
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  #screen {
+    height: 100px;
+    margin-top: 4rem;
+    background: lightgray;
+    border-top-right-radius: 19px;
+    border-top-left-radius: 19px;
+    display: flex;
+    align-content: center;
+  }
+
+  #read-out {
+    width: 80%;
+    height: 75%;
+    margin: auto;
+    text-align: right;
+    line-height: 0.9;
+    font-size: 4.9rem;
+    font-family: 'Calculator';
+}
+
+  #buttons {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  #buttons > div {
+    width: 24%;
+    border: 0px solid gray;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    background-color: brown;
+    transition: all .15s linear;
+    border-radius: 9px;
+    margin: 2px;
+}
+
+#buttons .function {
+  background-color: orange;
+}
+
+#buttons #clear {
+    width: 74%;
+}
+
+#buttons #zero {
+  width: 49%;
+}
+
+#buttons > div:active {
+  background-color: gray;
+}
+</style>
