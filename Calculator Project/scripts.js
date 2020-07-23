@@ -1,37 +1,67 @@
 'use strict';
 window.onload = function () {
 
-  const buttons = document.querySelectorAll(".entry"),
-    entry = document.querySelector("#read-out"),
-    operators = document.querySelectorAll(".operator"),
-    clear = document.getElementById("clear"),
-    divide = document.getElementById("divide"),
-    multiply = document.getElementById("multiply"),
-    minus = document.getElementById("minus"),
-    plus = document.getElementById("plus"),
-    equals = document.getElementById("equals");
-  var operator;
+  const buttons = document.querySelectorAll("#buttons div"),
+    entry = document.querySelector("#read-out");
+  var a, b, group = 1, operator;
 
+  // Sets event listener on all buttons
   for (const x of buttons) {
-    x.addEventListener("click", entryA);
+    x.addEventListener("click", begin);
   }
 
-  for (const y of operators) {
-    y.addEventListener("click", operation);
-  }
+  function begin() {
+    if (this.className === "entry" && group === 1) {
+      entry.innerText += this.innerText;
+      a = entry.innerText;
+      console.log(a + "a");
+    } 
+    
+    if (this.className === "entry" && group !== 1 && entry.innerText === a) {
+      entry.innerText = "";
+    }
 
-  function entryA() {
-    var a = this.innerText;
-    entry.innerText += a;
-    return entry;
-  }
+    if (this.className === "entry" && group !== 1 && entry.innerText !== a) {
+      entry.innerText += this.innerText;
+      b = entry.innerText;
+      console.log(b + "b");
+    }
 
-  function operation() {
-    var a = entry;
-    operator = this.innerText;
-    console.log(a + operator);
+    if (this.className === "operator" && a !== "") {
+      group++;
+      operator = this.innerText === "x" 
+        ? "*" 
+        : this.innerText === "÷"
+          ? "/"
+          : "";
+      this.style.backgroundColor = "red";
+    }
+
+    if (this.id === "equals" && a !== "" && b !== "") {
+      entry.innerText = calculate(a, b, operator);
+    }
+
+    if (this.id === "clear") {
+      entry.innerText = "";
+      a = "";
+      b = "";
+      group = 1;
+      operator = "";
+      var reset = document.querySelectorAll(".operator");
+      for (let i = 0; i < reset.length; i++) {
+        const FUNCS = reset[i];
+        FUNCS.style.backgroundColor = "orange";
+      }
+      // Could just do location.reload();
+    }
+
+    function calculate(a, b, operator) {
+      a = parseInt(a);
+      b = parseInt(b);
+      var results = eval(a + operator + b);
+      return results;
+    }
+
   }
   
 };
-
-// Set MAX to 10 numbers.
