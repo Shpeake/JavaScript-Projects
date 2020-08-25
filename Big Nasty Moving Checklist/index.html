@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>The Big Nasty Moving Checklist</h1>
+  <div id="list-wrapper">
+    <ul id="list">
+        <li><span class="checkbox">x</span><span class="task">Contact road trip friends</span></li>
+        <li><span class="checkbox">x</span><span class="task">Get a bike rack?</span></li>
+        <li><span class="checkbox">x</span><span class="task">Reserve a U-box</span></li>
+        <li><span class="checkbox">x</span><span class="task">Consolidate our house posessions</span></li>
+        <li><span class="checkbox">x</span><span class="task">Pack the U-box</span></li>
+        <li><span class="checkbox">x</span><span class="task">Pack snacks</span></li>
+        <li><span class="checkbox">x</span><span class="task">Make a road trip playlist</span></li>
+        <li><span class="checkbox">x</span><span class="task">Finalize route</span></li>
+    </ul>
+    <div id="tasks-done">
+      <div>DONE</div>
+      <div id="number-done"></div>
+    </div>
+  </div>
+</body>
+</html>
+
+<style>
+  body {
+    width: 95%;
+  }
+
+  @media screen and (min-width: 720px) {
+	#parent {
+    	width: 90%;
+	}
+}
+
+@media screen and (min-width: 1500px) {
+	#parent {
+    	width: 80%;
+	}
+}
+  
+  h1 {
+    text-align: center;
+    border-bottom: .5px solid black;
+    width: 80%;
+    padding-bottom: 1rem;
+    margin: 2rem auto 1.75rem auto;
+  }
+
+  li {
+    list-style: none;
+    font-size: xx-large;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  #list-wrapper {
+    display: flex;
+    flex-flow: nowrap;
+  }
+
+ #list {
+   width: 80%;
+ }
+
+  #tasks-done {
+    width: 20%;
+    text-align: center;
+    margin-top: 1em;
+  }
+
+  .checkbox {
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+    margin: 0 8px 2px 0;
+    color: transparent;
+    border: 1px solid grey;
+    display: inline-block;
+    font-size: 2.1rem;
+    text-align: center;
+    font-family: sans-serif;
+    line-height: 0.6;
+    transition: color .15s ease-out;
+}
+
+.checkbox:hover {
+  color: #0000001c;
+}
+
+.task {
+  text-decoration: none;
+  color: black;
+  background-color: transparent;
+  border-radius: 8px;
+  padding: 0 9px;
+  transition: all .15s ease-out;
+}
+</style>
+
+
+<script>
+  let list = document.querySelector("#list"),
+    tally = document.getElementById("number-done"),
+    checked = "00";
+
+  window.onload = () => {
+    tally.innerText = checked;
+  }
+
+  list.addEventListener("click",checkItem);
+
+  function checkItem() {
+    let checkBox = event.target.parentElement.children[0],
+    task = event.target.parentElement.children[1],
+    grandParent = event.target.parentElement.parentElement.id;
+
+    if (checkBox.style.color === "" && grandParent === "list") {
+      checkBox.style.color = "gray";
+      task.style = `
+        text-decoration: line-through;
+        color: grey;
+        background-color: #ececec;`;
+        addTask("plus");
+    } else if (grandParent === "list") {
+      checkBox.style.color = "";
+      task.style = "";
+      addTask("minus");
+      } else event.stopPropagation();
+    }
+
+    function addTask(op) {
+      op === "plus"
+        ? parseInt(checked++)
+        : parseInt(checked--);
+      console.log(checked);
+      checked < 10
+        ? checked = "0" + checked
+        : checked;
+      console.log(checked);
+      tally.innerText = checked;
+    }
+
+
+</script>
+
